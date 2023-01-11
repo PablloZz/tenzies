@@ -1,0 +1,113 @@
+@import url("https://fonts.googleapis.com/css2?family=Karla:wght@700;800&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: hsl(200, 100%, 90%);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Karla", sans-serif;
+}
+
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60vmin;
+  height: 60vmin;
+  background: #0b2434;
+}
+
+.main > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 55vmin;
+  height: 55vmin;
+  background: hsl(0, 0%, 96%);
+  border-radius: 10px;
+}
+
+.main .article {
+  text-align: center;
+  padding-bottom: 3vmin;
+  width: 35vmin;
+}
+
+.main .article h2 {
+  font-family: "Karla";
+  font-style: normal;
+  font-weight: 800;
+  font-size: 3.3vmin;
+  line-height: 3.9vmin;
+  letter-spacing: -0.03em;
+  color: #2b283a;
+}
+
+.main .article p {
+  font-family: "Inter";
+  font-style: normal;
+  font-size: 1.7vmin;
+  line-height: 2.2vmin;
+  letter-spacing: -0.03em;
+  color: #4a4e74;
+}
+
+.container {
+  display: grid;
+  grid-template: repeat(2, 1fr) / repeat(5, 5vmin);
+  gap: clamp(5px, 4vmin, 25px);
+  margin-bottom: 3vmin;
+}
+
+.die {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  background: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15);
+  color: #2b283a;
+  cursor: pointer;
+  font-family: "Karla";
+  font-size: 2vmin;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 0.5vmin;
+  text-align: center;
+  user-select: none;
+}
+
+.die.held {
+  background-color: #59e391;
+}
+
+.main button {
+  background: #5035ff;
+  box-shadow: 0px 3.2px 7.5px rgba(0, 0, 0, 0.18);
+  border-radius: 4px;
+
+  font-family: "Karla";
+  font-style: normal;
+  font-weight: 800;
+  font-size: 2vmin;
+  line-height: 2.4vmin;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  padding: 1vmin 2.6vmin;
+  border: transparent;
+  cursor: pointer;
+  color: #ffffff;
+}
+
+.main button:active {
+  transition: all 0.1s ease;
+  transform: scale(0.9);
+}
