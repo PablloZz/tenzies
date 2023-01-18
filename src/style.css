@@ -66,28 +66,6 @@ body {
   margin-bottom: 3vmin;
 }
 
-.die {
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  background: #ffffff;
-  border-radius: 5px;
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15);
-  color: #2b283a;
-  cursor: pointer;
-  font-family: "Karla";
-  font-size: 2vmin;
-  font-style: normal;
-  font-weight: 800;
-  line-height: 0.5vmin;
-  text-align: center;
-  user-select: none;
-}
-
-.die.held {
-  background-color: #59e391;
-}
-
 .main button {
   background: #5035ff;
   box-shadow: 0px 3.2px 7.5px rgba(0, 0, 0, 0.18);
@@ -110,4 +88,72 @@ body {
 .main button:active {
   transition: all 0.1s ease;
   transform: scale(0.9);
+}
+
+.die {
+  height: 5vmin;
+  background: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  user-select: none;
+}
+
+.die.held {
+  background-color: #59e391;
+}
+
+.dots {
+  height: 100%;
+  display: flex;
+  font-family: "Karla";
+  font-style: normal;
+  margin: 0;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.dots.dot1 {
+  justify-content: center;
+  align-items: center;
+}
+
+.dots.dot2,
+.dots.dot3,
+.dots.dot4,
+.dots.dot5,
+.dots.dot6 {
+  justify-content: space-between;
+}
+
+.dots.dot2 .dot:nth-of-type(2) {
+  align-self: flex-end;
+}
+
+.dots.dot3 .dot:nth-of-type(2) {
+  align-self: center;
+}
+
+.dots.dot3 .dot:nth-of-type(3) {
+  align-self: flex-end;
+}
+
+.dots.dot5 .column:nth-of-type(2){
+  justify-content: center;
+}
+
+.dots.dot4 .column,
+.dots.dot5 .column {
+  justify-content: space-between;
+}
+
+.dot {
+  margin: 0.3vmin;
+  background: #2b283a;
+  width: 1vmin;
+  height: 1vmin;
+  border-radius: 50%;
 }

@@ -5,7 +5,7 @@ import { nanoid } from "nanoid"
 import Confetti from "react-confetti"
 
 type DieType = {
-  value: number
+  value: number[]
   isHeld: boolean
   id: string
 }
@@ -15,8 +15,8 @@ export default function App() {
   const [tenzies, setTenzies] = useState(false)
 
   useEffect(() => {
-    const dieValue = dice[0].value
-    const isValuesTheSame = dice.every(die => die.value === dieValue)
+    const dieValue = dice[0].value.length
+    const isValuesTheSame = dice.every(die => die.value.length === dieValue)
     const isNumbersHeld = dice.every(die => die.isHeld)
     if (isValuesTheSame && isNumbersHeld) {
       setTenzies(true)
@@ -27,9 +27,17 @@ export default function App() {
   function allNewDice() {
     const newDicesArray: DieType[] = []
 
+    //Create Dice
     for (let i = 0; i < 10; i++) {
       const newValue = Math.ceil(Math.random() * 6)
-      newDicesArray.push({ value: newValue, isHeld: false, id: nanoid() })
+
+      // Create Amount of Dots for every Die
+      const diceDots = []
+      for (let j = 0; j < newValue; j++) {
+        diceDots.push(j)
+      }
+
+      newDicesArray.push({ value: diceDots, isHeld: false, id: nanoid() })
     }
     return newDicesArray
   }
@@ -65,7 +73,7 @@ export default function App() {
       holdDice={() => holdDice(die.id)}
     />
   ))
-
+  //https://codepen.io/LandonSchropp/pen/KpzzGo
   return (
     <main className="main">
       {tenzies && <Confetti />}
