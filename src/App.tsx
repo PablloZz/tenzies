@@ -13,6 +13,7 @@ type DieType = {
 export default function App() {
   const [dice, setDice] = useState(() => allNewDice())
   const [tenzies, setTenzies] = useState(false)
+  const [numberOfRolls, setNumberOfRolls] = useState(0)
 
   useEffect(() => {
     const dieValue = dice[0].value.length
@@ -50,6 +51,8 @@ export default function App() {
         return die.isHeld ? die : newDice[index]
       })
     )
+
+    setNumberOfRolls(prevNumber => prevNumber + 1)
   }
 
   function holdDice(id: string) {
@@ -80,10 +83,16 @@ export default function App() {
       <div>
         <article className="article">
           <h2>Tenzies</h2>
-          <p>
-            Roll until all dice are the same. Click each die to freeze it at its
-            current value between rolls.
-          </p>
+          {numberOfRolls > 0 ? (
+            <h1>Number of Rolls {numberOfRolls}</h1>
+          ) : (
+            <>
+              <p>
+                Roll until all dice are the same. Click each die to freeze it at
+                its current value between rolls.
+              </p>
+            </>
+          )}
         </article>
         <div className="container">{diceElements}</div>
         {tenzies ? (
