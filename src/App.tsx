@@ -3,6 +3,7 @@ import { Die } from "./components/Die"
 import "./style.css"
 import { nanoid } from "nanoid"
 import Confetti from "react-confetti"
+import { Header } from "./components/Header"
 
 type DieType = {
   value: number[]
@@ -14,7 +15,7 @@ export default function App() {
   const [dice, setDice] = useState(() => allNewDice())
   const [tenzies, setTenzies] = useState(false)
   const [numberOfRolls, setNumberOfRolls] = useState(0)
-
+  
   useEffect(() => {
     const dieValue = dice[0].value.length
     const isValuesTheSame = dice.every(die => die.value.length === dieValue)
@@ -76,24 +77,12 @@ export default function App() {
       holdDice={() => holdDice(die.id)}
     />
   ))
-  //https://codepen.io/LandonSchropp/pen/KpzzGo
+
   return (
     <main className="main">
       {tenzies && <Confetti />}
       <div>
-        <article className="article">
-          <h2>Tenzies</h2>
-          {numberOfRolls > 0 ? (
-            <h1>Number of Rolls {numberOfRolls}</h1>
-          ) : (
-            <>
-              <p>
-                Roll until all dice are the same. Click each die to freeze it at
-                its current value between rolls.
-              </p>
-            </>
-          )}
-        </article>
+        <Header numberOfRolls={numberOfRolls} />
         <div className="container">{diceElements}</div>
         {tenzies ? (
           <button onClick={newGame}>New Game</button>
