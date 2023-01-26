@@ -19,7 +19,7 @@ function GameDuration() {
   return (
     <div className="time">
       {timeOfGame > 59
-        ? `${+(timeOfGame / 60).toFixed(2)}`
+        ? `${+(timeOfGame / 60).toFixed(1)}`
         : `0.${timeOfGame.toFixed()}`}
     </div>
   )
