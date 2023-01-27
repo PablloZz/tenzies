@@ -22,26 +22,31 @@ export default function App() {
     const isNumbersHeld = dice.every(die => die.isHeld)
     if (isValuesTheSame && isNumbersHeld) {
       setTenzies(true)
-      console.log("You won")
+      alert("You won")
     }
   }, [dice])
 
   function allNewDice() {
-    const newDicesArray: DieType[] = []
+    const newDiceArray: DieType[] = []
 
     //Create Dice
     for (let i = 0; i < 10; i++) {
       const newValue = Math.ceil(Math.random() * 6)
-
-      // Create Amount of Dots for every Die
-      const diceDots = []
-      for (let j = 0; j < newValue; j++) {
-        diceDots.push(j)
-      }
-
-      newDicesArray.push({ value: diceDots, isHeld: false, id: nanoid() })
+      let diceDots = createDiceDots(newValue)
+      newDiceArray.push({ value: diceDots, isHeld: false, id: nanoid() })
     }
-    return newDicesArray
+
+    return newDiceArray
+  }
+
+  function createDiceDots(value: number) {
+    const diceDots: number[] = []
+
+    for (let i = 0; i < value; i++) {
+      diceDots.push(i)
+    }
+
+    return diceDots
   }
 
   function rollDice() {
