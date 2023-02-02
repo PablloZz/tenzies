@@ -2,27 +2,27 @@ import React, { useEffect, useState } from "react"
 
 function GameDuration() {
   const [timeOfGame, setTimeOfGame] = useState(0)
+  const [minutes, setMinutes] = useState(0)
 
   useEffect(() => {
-    gameDuration(0)
+    function increaseTime() {
+
+      setTimeOfGame((prevTime) => {
+
+        if ((prevTime + 1) === 60) {
+          setMinutes(prevMinutes => prevMinutes + 1)
+          return 0
+        } 
+        return prevTime + 1
+      })
+    }
+
+    let timerId = window.setInterval(increaseTime, 1000)
+
+    return () => window.clearInterval(timerId)
   }, [])
 
-  let lastTime = 0
-  let delta = 0
-  function gameDuration(time: number) {
-    delta = (time - lastTime) / 500
-    setTimeOfGame(prevTime => prevTime + delta)
-    lastTime = time
-    requestAnimationFrame(gameDuration)
-  }
-
-  return (
-    <div className="time">
-      {timeOfGame > 59
-        ? `${+(timeOfGame / 60).toFixed(1)}`
-        : `0.${timeOfGame.toFixed()}`}
-    </div>
-  )
+  return <div className="time">{(minutes < 1) ? `0.${timeOfGame}` : `${minutes}.${timeOfGame}`}</div>
 }
 
 export default GameDuration
