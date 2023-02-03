@@ -4,6 +4,7 @@ import "./style.css"
 import { nanoid } from "nanoid"
 import Confetti from "react-confetti"
 import { Header } from "./components/Header"
+import Button from "./components/Button"
 
 type DieType = {
   value: number[]
@@ -15,13 +16,15 @@ export default function App() {
   const [dice, setDice] = useState(() => allNewDice())
   const [tenzies, setTenzies] = useState(false)
   const [numberOfRolls, setNumberOfRolls] = useState(0)
-  
+  const [isGameStarted, setIsGameStarted] = useState(false)
+
   useEffect(() => {
     const dieValue = dice[0].value.length
-    const isValuesTheSame = dice.every(die => die.value.length === dieValue)
-    const isNumbersHeld = dice.every(die => die.isHeld)
+    const isValuesTheSame = dice.every((die) => die.value.length === dieValue)
+    const isNumbersHeld = dice.every((die) => die.isHeld)
     if (isValuesTheSame && isNumbersHeld) {
       setTenzies(true)
+      setIsGameStarted(false)
       alert("You won")
     }
   }, [dice])
@@ -52,29 +55,38 @@ export default function App() {
   function rollDice() {
     const newDice = allNewDice()
 
-    setDice(prevDice =>
+    setDice((prevDice) =>
       prevDice.map((die, index) => {
         return die.isHeld ? die : newDice[index]
       })
     )
 
-    setNumberOfRolls(prevNumber => prevNumber + 1)
+    setNumberOfRolls((prevNumber) => prevNumber + 1)
   }
 
   function holdDice(id: string) {
-    setDice(prevDice =>
-      prevDice.map(die => {
+    if(!isGameStarted) return
+
+    setDice((prevDice) =>
+      prevDice.map((die) => {
         return die.id === id ? { ...die, isHeld: !die.isHeld } : die
       })
     )
   }
 
+  function startGame() {
+    setIsGameStarted(true)
+    setNumberOfRolls(0)
+  }
+
   function newGame() {
     setDice(allNewDice())
+    setNumberOfRolls(0)
+    setIsGameStarted(true)
     setTenzies(false)
   }
 
-  const diceElements = dice.map(die => (
+  const diceElements = dice.map((die) => (
     <Die
       key={die.id}
       value={die.value}
@@ -87,13 +99,15 @@ export default function App() {
     <main className="main">
       {tenzies && <Confetti />}
       <div>
-        <Header numberOfRolls={numberOfRolls} />
+        <Header numberOfRolls={numberOfRolls} isStarted={isGameStarted}/>
         <div className="container">{diceElements}</div>
-        {tenzies ? (
-          <button onClick={newGame}>New Game</button>
-        ) : (
-          <button onClick={rollDice}>Roll</button>
-        )}
+        <Button
+          tenzies={tenzies}
+          newGame={newGame}
+          rollDice={rollDice}
+          startGame={startGame}
+          isStarted={isGameStarted}
+        />
       </div>
     </main>
   )

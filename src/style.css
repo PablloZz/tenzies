@@ -34,13 +34,13 @@ body {
   border-radius: 10px;
 }
 
-.main .article {
+.main .section {
   text-align: center;
   padding-bottom: 3vmin;
   width: 35vmin;
 }
 
-.main .article h2 {
+.main .section h2 {
   font-family: "Karla";
   font-style: normal;
   font-weight: 800;
@@ -50,20 +50,20 @@ body {
   color: #2b283a;
 }
 
-.main .article p,
-.main .article h1 {
+.main .section p,
+.main .section h1 {
   font-family: "Inter";
   font-style: normal;
   letter-spacing: -0.03em;
   color: #4a4e74;
 }
 
-.main .article p {
+.main .section p {
   font-size: 1.7vmin;
   line-height: 2.2vmin;
 }
 
-.main .article h1 {
+.main .section h1 {
   font-size: 3vmin;
 }
 
