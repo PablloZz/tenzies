@@ -1,11 +1,9 @@
-import GameDuration from "./GameDuration"
-
 type HeaderProps = {
   numberOfRolls: number
-  isStarted: boolean
+  getTimeOfGame: () => string
 }
 
-export function Header({ numberOfRolls, isStarted }: HeaderProps) {
+export function Header({ numberOfRolls, getTimeOfGame }: HeaderProps) {
   return (
     <section className="section">
       <h2>Tenzies</h2>
@@ -17,7 +15,7 @@ export function Header({ numberOfRolls, isStarted }: HeaderProps) {
           current value between rolls.
         </p>
       )}
-      <GameDuration isStarted={isStarted} />
+      <div className="time">{getTimeOfGame()}</div>
     </section>
   )
 }

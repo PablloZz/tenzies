@@ -16,20 +16,12 @@ export default function Button({
   let button
 
   if (!isStarted && !tenzies) {
-    return (button = <button onClick={startGame}>Start Game</button>)
+    button = <button onClick={startGame}>Start Game</button>
   } else if (tenzies && !isStarted) {
-    return (button = <button onClick={newGame}>New Game</button>)
+    button = <button onClick={newGame}>New Game</button>
   } else {
-    <button onClick={rollDice}>Roll</button>
+    button = <button onClick={rollDice}>Roll</button>
   }
 
-  return (
-    <>
-      {tenzies ? (
-        <button onClick={newGame}>New Game</button>
-      ) : (
-        <button onClick={rollDice}>Roll</button>
-      )}
-    </>
-  )
+  return button
 }
