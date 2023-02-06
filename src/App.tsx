@@ -5,6 +5,7 @@ import { nanoid } from "nanoid"
 import Confetti from "react-confetti"
 import { Header } from "./components/Header"
 import Button from "./components/Button"
+import { BestResults } from "./components/BestResults"
 
 type DieType = {
   value: number[]
@@ -19,6 +20,7 @@ export default function App() {
   const [isGameStarted, setIsGameStarted] = useState(false)
   const [seconds, setSeconds] = useState(0)
   const [minutes, setMinutes] = useState(0)
+  const [timeOfGame, setTimeOfGame] = useState("0")
   const [bestTime, setBestTime] = useState(() =>
     Number(localStorage.getItem("best-time"))
   )
@@ -123,7 +125,7 @@ export default function App() {
     } else if (seconds >= 10) {
       timeFormat = `${seconds}`
     }
-    let time = minutes < 1 ? "0." + timeFormat : minutes + "." + seconds
+    let time = minutes < 1 ? "0." + timeFormat : minutes + "." + timeFormat
     return time
   }
 
@@ -136,30 +138,32 @@ export default function App() {
   }
 
   function calculateBestTime() {
-    let currentBestTime = localStorage.getItem("best-time")
-    let currentTime = getTimeOfGame()
+    let currentBestTime = Number(localStorage.getItem("best-time"))
+    let currentTime = Number(getTimeOfGame())
 
     if (!currentBestTime) {
       localStorage.setItem("best-time", JSON.stringify(currentTime))
+      setBestTime(currentTime)
       return
     }
 
     let newBestTime =
-      +currentBestTime < Number(currentTime) ? +currentBestTime : currentTime
+      currentBestTime < currentTime ? currentBestTime : currentTime
     localStorage.setItem("best-time", JSON.stringify(newBestTime))
-    setBestTime(Number(newBestTime))
+    setBestTime(newBestTime)
   }
 
   function calculateBestRolls() {
-    let currentBestRolls = localStorage.getItem("best-rolls")
+    let currentBestRolls = Number(localStorage.getItem("best-rolls"))
 
     if (!currentBestRolls) {
       localStorage.setItem("best-rolls", JSON.stringify(numberOfRolls))
+      setBestRolls(numberOfRolls)
       return
     }
 
     let newBestRolls =
-      +currentBestRolls < numberOfRolls ? +currentBestRolls : numberOfRolls
+      currentBestRolls < numberOfRolls ? currentBestRolls : numberOfRolls
     localStorage.setItem("best-rolls", JSON.stringify(newBestRolls))
     setBestRolls(newBestRolls)
   }
@@ -176,14 +180,7 @@ export default function App() {
   return (
     <main className="main">
       {tenzies && <Confetti />}
-      <div className="best-results">
-        <h2>
-          Best Time: <span>{bestTime}</span>
-        </h2>
-        <h2>
-          Best Rolls: <span>{bestRolls}</span>
-        </h2>
-      </div>
+      <BestResults bestTime={bestTime} bestRolls={bestRolls} />
       <div className="game-board">
         <Header numberOfRolls={numberOfRolls} getTimeOfGame={getTimeOfGame} />
         <div className="container">{diceElements}</div>
